@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>查詢</title>
+</head>
+<body>
+    <h1>客服聊天機器人</h1>
+    <form id="queryForm">
+        <label for="queryInput">輸入查詢內容：</label>
+        <input type="text" id="queryInput" name="queryInput">
+        <button type="submit">查詢</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表單提交預設行為
+
+            // 取得使用者輸入的資料
+            const queryInput = document.getElementById('queryInput').value;
+
+            // 使用 fetch 方法發送 API 請求
+            fetch(`https://api.example.com/query?input=${queryInput}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 將 API 回傳的資料顯示在結果區域
+                    document.getElementById('result').innerHTML = JSON.stringify(data);
+                })
+                .catch(error => {
+                    // 處理錯誤情況
+                    console.error('發生錯誤：', error);
+                    document.getElementById('result').innerHTML = 'not found';
+                });
+        });
+    </script>
+</body>
+</html>
